@@ -23,7 +23,7 @@ const InputSubmit = styled.input`
 `;
 
 const Form = () => {
-  const [SelectCurrencies] = useSelectCurrencies(
+  const [currency, SelectCurrencies] = useSelectCurrencies(
     "Select your currency",
     currencies
   );
@@ -31,6 +31,7 @@ const Form = () => {
   return (
     <form>
       <SelectCurrencies />
+      {currency}
       <InputSubmit type="submit" value="Convert" />
     </form>
   );
