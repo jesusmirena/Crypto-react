@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import useSelectCurrencies from "../hooks/useSelectCurrencies";
 
 const InputSubmit = styled.input`
   background-color: #9497ff;
@@ -20,8 +21,10 @@ const InputSubmit = styled.input`
 `;
 
 const Form = () => {
+  const [SelectCurrencies] = useSelectCurrencies("Select your currency");
   return (
     <form>
+      <SelectCurrencies />
       <InputSubmit type="submit" value="Convert" />
     </form>
   );
