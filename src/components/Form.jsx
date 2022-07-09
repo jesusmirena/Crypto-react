@@ -26,7 +26,7 @@ const InputSubmit = styled.input`
   }
 `;
 
-const Form = () => {
+const Form = ({ setCurrenciesState }) => {
   const [cryptos, setCryptos] = useState([]);
   const [error, setError] = useState(false);
 
@@ -46,7 +46,12 @@ const Form = () => {
       return;
     }
     setError(false);
+    setCurrenciesState({
+      currencies,
+      cryptocurrency,
+    });
   };
+
   useEffect(() => {
     const getApiInfo = async () => {
       const url =

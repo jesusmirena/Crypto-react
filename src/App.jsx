@@ -41,12 +41,19 @@ const Heading = styled.h1`
 `;
 
 function App() {
+  const [currenciesState, setCurrenciesState] = useState({});
+
+  useEffect(() => {
+    if (Object.keys(currenciesState).length > 0) {
+    }
+  }, [currenciesState]);
+
   return (
     <Container>
       <Image src={CryptoImage} alt="crypto background" />
       <div>
         <Heading>Check cryptocurrencies price instantly!</Heading>
-        <Form />
+        <Form setCurrenciesState={setCurrenciesState} />
       </div>
     </Container>
   );
