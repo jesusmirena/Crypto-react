@@ -77,9 +77,6 @@ const Form = ({ setCurrenciesState }) => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <SelectCurrencies />
         <SelectCryptoCurrencies />
-        {currency}
-        {cryptocurrency}
-
         <InputSubmit type="submit" value="Convert" />
       </form>
     </>
