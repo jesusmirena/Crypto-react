@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import CryptoImage from "./img/imagen-criptos.png";
 import Form from "./components/Form";
+
+import axios from "axios";
 
 const Container = styled.div`
   max-width: 900px;
@@ -42,9 +44,20 @@ const Heading = styled.h1`
 
 function App() {
   const [currenciesState, setCurrenciesState] = useState({});
+  const [result, setResult] = useState({});
 
   useEffect(() => {
     if (Object.keys(currenciesState).length > 0) {
+      const convertCrypto = async () => {
+        const { currency, cryptocurrency } = currenciesState;
+        const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrency}&tsyms=${currency}`;
+
+        const response = await axios.get(url);
+        const result = response.data.DISPLAY[cryptocurrency][currency];
+        console.log(result);
+        setResult(result);
+      };
+      convertCrypto();
     }
   }, [currenciesState]);
 

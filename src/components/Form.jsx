@@ -46,8 +46,9 @@ const Form = ({ setCurrenciesState }) => {
       return;
     }
     setError(false);
+
     setCurrenciesState({
-      currencies,
+      currency,
       cryptocurrency,
     });
   };
