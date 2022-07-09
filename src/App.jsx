@@ -4,6 +4,7 @@ import CryptoImage from "./img/imagen-criptos.png";
 import Form from "./components/Form";
 
 import axios from "axios";
+import Result from "./components/Result";
 
 const Container = styled.div`
   max-width: 900px;
@@ -67,6 +68,7 @@ function App() {
       <div>
         <Heading>Check cryptocurrencies price instantly!</Heading>
         <Form setCurrenciesState={setCurrenciesState} />
+        {result.PRICE && <Result result={result} />}
       </div>
     </Container>
   );
