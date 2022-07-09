@@ -5,6 +5,7 @@ import Form from "./components/Form";
 
 import axios from "axios";
 import Result from "./components/Result";
+import Spinner from "./components/Spinner";
 
 const Container = styled.div`
   max-width: 900px;
@@ -46,17 +47,21 @@ const Heading = styled.h1`
 function App() {
   const [currenciesState, setCurrenciesState] = useState({});
   const [result, setResult] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (Object.keys(currenciesState).length > 0) {
       const convertCrypto = async () => {
+        setIsLoading(true);
+        setResult({});
         const { currency, cryptocurrency } = currenciesState;
         const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrency}&tsyms=${currency}`;
 
         const response = await axios.get(url);
         const result = response.data.DISPLAY[cryptocurrency][currency];
-        console.log(result);
+
         setResult(result);
+        setIsLoading(false);
       };
       convertCrypto();
     }
@@ -68,6 +73,7 @@ function App() {
       <div>
         <Heading>Check cryptocurrencies price instantly!</Heading>
         <Form setCurrenciesState={setCurrenciesState} />
+        {isLoading && <Spinner />}
         {result.PRICE && <Result result={result} />}
       </div>
     </Container>
