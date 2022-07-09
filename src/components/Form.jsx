@@ -25,6 +25,8 @@ const InputSubmit = styled.input`
 `;
 
 const Form = () => {
+  const [cryptos, setCryptos] = useState([]);
+
   const [currency, SelectCurrencies] = useSelectCurrencies(
     "Select your currency",
     currencies
@@ -33,9 +35,17 @@ const Form = () => {
   useEffect(() => {
     const getApiInfo = async () => {
       const url =
-        "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD";
+        "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
       const response = await axios.get(url);
-      console.log(response.data.Data);
+
+      const cryptoArray = response.data.Data.map((crypto) => {
+        const cryptoObj = {
+          id: crypto.CoinInfo.Name,
+          name: crypto.CoinInfo.FullName,
+        };
+        return cryptoObj;
+      });
+      setCryptos(cryptoArray);
     };
     getApiInfo();
   }, []);
