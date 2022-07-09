@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
 
+import Error from "./Error";
+
 import useSelectCurrencies from "../hooks/useSelectCurrencies";
 import { currencies } from "../data/currencies";
 
@@ -26,6 +28,7 @@ const InputSubmit = styled.input`
 
 const Form = () => {
   const [cryptos, setCryptos] = useState([]);
+  const [error, setError] = useState(false);
 
   const [currency, SelectCurrencies] = useSelectCurrencies(
     "Select your currency",
@@ -35,6 +38,15 @@ const Form = () => {
     "Select your cryptocurrency",
     cryptos
   );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if ([currency, cryptocurrency].includes("")) {
+      setError(true);
+      return;
+    }
+    setError(false);
+  };
   useEffect(() => {
     const getApiInfo = async () => {
       const url =
@@ -54,14 +66,17 @@ const Form = () => {
   }, []);
 
   return (
-    <form>
-      <SelectCurrencies />
-      <SelectCryptoCurrencies />
-      {currency}
-      {cryptocurrency}
+    <>
+      {error && <Error>All the fields are mandatory</Error>}
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <SelectCurrencies />
+        <SelectCryptoCurrencies />
+        {currency}
+        {cryptocurrency}
 
-      <InputSubmit type="submit" value="Convert" />
-    </form>
+        <InputSubmit type="submit" value="Convert" />
+      </form>
+    </>
   );
 };
 
