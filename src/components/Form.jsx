@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
+
 import useSelectCurrencies from "../hooks/useSelectCurrencies";
 import { currencies } from "../data/currencies";
 
@@ -27,6 +29,16 @@ const Form = () => {
     "Select your currency",
     currencies
   );
+
+  useEffect(() => {
+    const getApiInfo = async () => {
+      const url =
+        "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD";
+      const response = await axios.get(url);
+      console.log(response.data.Data);
+    };
+    getApiInfo();
+  }, []);
 
   return (
     <form>
