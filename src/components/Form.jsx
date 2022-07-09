@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
 
@@ -31,7 +31,10 @@ const Form = () => {
     "Select your currency",
     currencies
   );
-
+  const [cryptocurrency, SelectCryptoCurrencies] = useSelectCurrencies(
+    "Select your cryptocurrency",
+    cryptos
+  );
   useEffect(() => {
     const getApiInfo = async () => {
       const url =
@@ -53,7 +56,10 @@ const Form = () => {
   return (
     <form>
       <SelectCurrencies />
+      <SelectCryptoCurrencies />
       {currency}
+      {cryptocurrency}
+
       <InputSubmit type="submit" value="Convert" />
     </form>
   );
